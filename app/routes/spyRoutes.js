@@ -1,6 +1,5 @@
-module.exports = function(app, db) {
+module.exports = function(app, db, ws) {
 
-  
   app.get('/spies', (req, res) => {
   	console.log('get spies');
   	var spies = db.getCollection('spies');
@@ -24,5 +23,20 @@ module.exports = function(app, db) {
   		res.send({username: 'spy-bot', text: 'Failed to spy! Chech msg format.'});
   	}
     
+  });
+
+
+  app.get('/spystatus', (req, res) => {
+    console.log('get - spy status');
+    var msg = {
+  "action": "get_statuses",
+  "seq": 2
+  // "data": {
+    // "channel_id": "nhze199c4j87ped4wannrjdt9c",
+    // "parent_id": ""
+  // }
+};
+    ws.send(JSON.stringify(msg));
+    res.send('request sent');
   });
 };
