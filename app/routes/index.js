@@ -1,5 +1,5 @@
 const spyRoutes = require('./spyRoutes');
 
-module.exports = function (app, data) {
-    spyRoutes(app, data);
+module.exports = function (app, data, token) {
+    spyRoutes(app, data, token);
 };
