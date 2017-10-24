@@ -10,10 +10,11 @@ var data = {spies: {}, users: {}};
 
 var auth = require('./app/auth')();
 var myRoutes = require('./app/routes');
+var spy = require('./app/spy');
 auth.login()
     .then(function (token) {
-        console.log(token);
         myRoutes(app, data, token);
+        spy(data, token);
         app.use(function (req, res) {
             res.status(404).send({url: req.originalUrl + ' not found'})
         });
