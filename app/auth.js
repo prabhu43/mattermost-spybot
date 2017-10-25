@@ -21,6 +21,7 @@ var auth = function () {
                 res.setEncoding('utf8');
                 res.on('data', function (body) {
                     console.log('Login successful');
+                    console.log(token);
                     resolve(token);
                 });
             });

@@ -25,13 +25,16 @@ module.exports = function (app, data, token) {
         var spyRequestTerms = spyRequest.split(' ');
         if (spyRequestTerms[0] === '#spy') {
             var victim = spyRequestTerms[1].startsWith('@') ? spyRequestTerms[1].substring(1) : spyRequestTerms[1];
-            var user = {id: requestBody.user_id, name: requestBody.user_name}
+            var owner = {id: requestBody.user_id, name: requestBody.user_name};
+            if(!users[owner.name]) {
+                users[owner.name] = owner.id;
+            }
             if (!users[victim]) {
                 console.log(`User ${victim} not found in cache`);
                 getUserId(victim)
-                    .then(addSpy.bind(null, victim, user));
+                    .then(addSpy.bind(null, victim, owner));
             } else {
-                addSpy(victim, user);
+                addSpy(victim, owner);
             }
 
             var responseMsg = 'Spy added for ' + victim;
