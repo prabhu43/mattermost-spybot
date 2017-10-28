@@ -4,7 +4,7 @@ var _ = require('lodash');
 
 module.exports = function(data, token) {
     var seq = 0;
-    var pollInterval = process.env.POLL_INTERVAL_SECS * 1000;
+    var pollInterval = (process.env.POLL_INTERVAL_SECS || 60) * 1000;
     var users = data.users;
     var spies = data.spies;
     var mattermostHost = process.env.MATTERMOST_HOST;
