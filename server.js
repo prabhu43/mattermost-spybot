@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+require('dotenv').config();
+
 var port = process.env.PORT || 8080;
 
 app.use(bodyParser.urlencoded({extended: true}));

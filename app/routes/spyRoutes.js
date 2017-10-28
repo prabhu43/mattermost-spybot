@@ -3,9 +3,10 @@ const Promise = require("promise");
 
 module.exports = function (app, data, token) {
 
-    console.log(new Date());
     var spies = data.spies;
     var users = data.users;
+    var mattermostHost = process.env.MATTERMOST_HOST;
+    var mattermostPort = process.env.MATTERMOST_PORT;
 
     app.get('/users', (req, res) => {
         console.log('get users');
@@ -50,8 +51,8 @@ module.exports = function (app, data, token) {
     var getUserId = function (victimName) {
         var prom = new Promise(function (resolve, reject) {
             var options = {
-                hostname: 'ec2-13-126-112-247.ap-south-1.compute.amazonaws.com',
-                port: 8065,
+                hostname: mattermostHost,
+                port: mattermostPort,
                 path: '/api/v4/users/usernames',
                 method: 'POST',
                 headers: {

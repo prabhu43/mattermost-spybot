@@ -2,11 +2,16 @@ const http = require('http');
 const Promise = require("promise");
 
 var auth = function () {
-    var loginData = {"login_id": "j.prabhu91@gmail.com", "password": "!abcd1234"};
+    var spyId = process.env.SPY_ID;
+    var spyPassword = process.env.SPY_PASSWORD;
+    var mattermostHost = process.env.MATTERMOST_HOST;
+    var mattermostPort = process.env.MATTERMOST_PORT;
+
+    var loginData = {"login_id": spyId, "password": spyPassword};
 
     const loginReqOptions = {
-        hostname: 'ec2-13-126-112-247.ap-south-1.compute.amazonaws.com',
-        port: 8065,
+        hostname: mattermostHost,
+        port: mattermostPort,
         path: '/api/v4/users/login',
         method: 'POST',
         headers: {

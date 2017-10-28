@@ -4,11 +4,14 @@ var _ = require('lodash');
 
 module.exports = function(data, token) {
     var seq = 0;
-    var pollInterval = 5 * 1000;
+    var pollInterval = process.env.POLL_INTERVAL_SECS * 1000;
     var users = data.users;
     var spies = data.spies;
+    var mattermostHost = process.env.MATTERMOST_HOST;
+    var mattermostPort = process.env.MATTERMOST_PORT;
+    var spyChannelId = process.env.SPY_CHANNEL_ID;
 
-    const ws = new WebSocket('ws://ec2-13-126-112-247.ap-south-1.compute.amazonaws.com:8065/api/v4/websocket');
+    const ws = new WebSocket(`ws://${mattermostHost}:${mattermostPort}/api/v4/websocket`);
 
     getSeq = function() {
         return ++seq;
@@ -75,14 +78,15 @@ module.exports = function(data, token) {
         console.log(ownersString);
         var msg = `Hi ${ownersString} \n @${victim} is online now`;
 
+
         var msgBody = {
-            "channel_id": "9dspc6xhfifnue6zrzj1d55fah",
+            "channel_id": spyChannelId,
             "message": msg
         };
 
         var options = {
-            hostname: 'ec2-13-126-112-247.ap-south-1.compute.amazonaws.com',
-            port: 8065,
+            hostname: mattermostHost,
+            port: mattermostPort,
             path: '/api/v4/posts',
             method: 'POST',
             headers: {
