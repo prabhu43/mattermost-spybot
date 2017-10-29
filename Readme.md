@@ -28,4 +28,5 @@ Callback URLs (One Per Line): <spy-bot url>/spies
 4. Mention the polling interval time(POLL_INTERVAL_SECS). If it is not set, default polling interval is 1 minute. This indicates the frequency to check the user status.
 5. Install npm dependencies: **npm install**
 6. Start the app: **npm start**
+7. To spy on your team mate: Type "#spy @\<name>" or "#spy \<name>" in the spy channel
 
