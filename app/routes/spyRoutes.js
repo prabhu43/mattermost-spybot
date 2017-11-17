@@ -24,8 +24,10 @@ module.exports = function (app, data, token) {
         console.log(requestBody);
         var spyRequest = requestBody.text.trim();
         var spyRequestTerms = spyRequest.split(' ');
-        if (spyRequestTerms[0] === '#spy') {
-            var victim = spyRequestTerms[1].startsWith('@') ? spyRequestTerms[1].substring(1) : spyRequestTerms[1];
+        if (spyRequestTerms.length !== 1 || spyRequestTerms[0].length === 0) {
+            res.send({username: "spy-bot", text: "Failed to spy! Command format is: /spy <username>"});
+        } else {
+            var victim = spyRequestTerms[0].startsWith('@') ? spyRequestTerms[0].substring(1) : spyRequestTerms[0];
             var owner = {id: requestBody.user_id, name: requestBody.user_name};
             if(!users[owner.name]) {
                 users[owner.name] = owner.id;
@@ -40,9 +42,6 @@ module.exports = function (app, data, token) {
 
             var responseMsg = 'Spy added for ' + victim;
             res.send({username: 'spy-bot', text: responseMsg});
-        } else {
-            console.log(spyRequestTerms);
-            res.send({username: 'spy-bot', text: 'Failed to spy! Chech msg format.'});
         }
 
     });

@@ -9,7 +9,6 @@ module.exports = function(data, token) {
     var spies = data.spies;
     var mattermostHost = process.env.MATTERMOST_HOST;
     var mattermostPort = process.env.MATTERMOST_PORT;
-    var spyChannelId = process.env.SPY_CHANNEL_ID;
     var webHookId = process.env.WEBHOOK_ID;
 
     const ws = new WebSocket(`ws://${mattermostHost}:${mattermostPort}/api/v4/websocket`);
