@@ -10,6 +10,7 @@ module.exports = function(data, token) {
     var mattermostHost = process.env.MATTERMOST_HOST;
     var mattermostPort = process.env.MATTERMOST_PORT;
     var spyChannelId = process.env.SPY_CHANNEL_ID;
+    var webHookId = process.env.WEBHOOK_ID;
 
     const ws = new WebSocket(`ws://${mattermostHost}:${mattermostPort}/api/v4/websocket`);
 
@@ -78,16 +79,15 @@ module.exports = function(data, token) {
         console.log(ownersString);
         var msg = `Hi ${ownersString} \n @${victim} is online now`;
 
-
-        var msgBody = {
-            "channel_id": spyChannelId,
-            "message": msg
+        var payload = {
+            username: "spy-bot",
+            text: msg
         };
 
         var options = {
             hostname: mattermostHost,
             port: mattermostPort,
-            path: '/api/v4/posts',
+            path: `/hooks/${webHookId}`,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -95,7 +95,8 @@ module.exports = function(data, token) {
             }
         };
         var postReq = http.request(options);
-        postReq.write(JSON.stringify(msgBody));
+        postReq.write(JSON.stringify(payload));
+
         postReq.end();
     }
 };
