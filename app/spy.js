@@ -79,6 +79,7 @@ module.exports = function(data, token) {
         var msg = `Hi ${ownersString} \n @${victim} is online now`;
 
         var payload = {
+            channel: ownersString,
             username: "spy-bot",
             text: msg
         };
