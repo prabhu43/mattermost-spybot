@@ -39,7 +39,7 @@ var auth = function () {
 
     return {
         login: login
-    }
+    };
 
 };
 

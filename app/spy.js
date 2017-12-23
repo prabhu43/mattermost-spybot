@@ -97,5 +97,5 @@ module.exports = function(data, token) {
         postReq.write(JSON.stringify(payload));
 
         postReq.end();
-    }
+    };
 };

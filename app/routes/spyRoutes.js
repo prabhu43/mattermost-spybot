@@ -85,5 +85,5 @@ module.exports = function (app, data, token) {
             spies[victimName] = {id: users[victimName], users: []};
         }
         spies[victimName].users.push(user);
-    }
+    };
 };

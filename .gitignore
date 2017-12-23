@@ -62,4 +62,5 @@ typings/
 .env
 
 .idea
+*.iml
 # End of https://www.gitignore.io/api/node
