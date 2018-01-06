@@ -35,13 +35,10 @@ module.exports = function (app, data, token) {
             if (!users[victim]) {
                 console.log(`User ${victim} not found in cache`);
                 getUserId(victim)
-                    .then(addSpy.bind(null, victim, owner));
+                    .then(userFound.bind(null, victim, owner, res), userNotFound.bind(null, victim, owner, res));
             } else {
-                addSpy(victim, owner);
+                userFound(victim, owner, res);
             }
-
-            var responseMsg = 'Spy added for ' + victim;
-            res.send({username: 'spy-bot', text: responseMsg});
         }
 
     });
@@ -67,8 +64,12 @@ module.exports = function (app, data, token) {
                     if (usersData.length === 1) {
                         var victimId = usersData[0].id;
                         users[victimName] = victimId;
+                        resolve(users);
+                    } else {
+                        console.log(`User with name ${victimName} not found!`);
+                        reject(users);
                     }
-                    resolve(users);
+
                 });
             });
             usernameReq.write(JSON.stringify([victimName]));
@@ -85,5 +86,17 @@ module.exports = function (app, data, token) {
             spies[victimName] = {id: users[victimName], users: []};
         }
         spies[victimName].users.push(user);
+    };
+
+    var userFound = function (victimName, user, res) {
+        addSpy(victimName, user);
+
+        var responseMsg = `Spy added for ${victimName}`;
+        res.send({username: 'spy-bot', text: responseMsg});
+    };
+
+    var userNotFound = function(victimName, user, res) {
+        var responseMsg = `User with name ${victimName} is not found`;
+        res.send({username: 'spy-bot', text: responseMsg});
     };
 };
