@@ -78,7 +78,7 @@ module.exports = function(data, token) {
     informOwners = function(owners, victim) {
         _.each(owners, (owner) => {
             var ownerChannel = `@${owner.name}`;
-            var msg = `Hi ${owner.name} \n @${victim} is online now`;
+            var msg = `Hi ${owner.name} \n ${victim} is online now`;
             var payload = {
                 channel: ownerChannel,
                 username: "spy-bot",
