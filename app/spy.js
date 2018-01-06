@@ -76,29 +76,30 @@ module.exports = function(data, token) {
     setInterval(pollUserStatus, pollInterval);
 
     informOwners = function(owners, victim) {
-        var ownersString = _.map(owners, (owner) => `@${owner.name}`).join(', ');
-        console.log(ownersString);
-        var msg = `Hi ${ownersString} \n @${victim} is online now`;
+        _.each(owners, (owner) => {
+            var ownerChannel = `@${owner.name}`;
+            var msg = `Hi ${owner.name} \n @${victim} is online now`;
+            var payload = {
+                channel: ownerChannel,
+                username: "spy-bot",
+                text: msg
+            };
 
-        var payload = {
-            channel: ownersString,
-            username: "spy-bot",
-            text: msg
-        };
+            var options = {
+                hostname: mattermostHost,
+                port: mattermostPort,
+                path: `/hooks/${webHookId}`,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            };
 
-        var options = {
-            hostname: mattermostHost,
-            port: mattermostPort,
-            path: `/hooks/${webHookId}`,
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
-            }
-        };
-        var postReq = https.request(options);
-        postReq.write(JSON.stringify(payload));
+            var postReq = https.request(options);
+            postReq.write(JSON.stringify(payload));
 
-        postReq.end();
+            postReq.end();
+        });
     };
 };
