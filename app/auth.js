@@ -1,4 +1,4 @@
-const http = require('http');
+const https = require('https');
 const Promise = require("promise");
 
 var auth = function () {
@@ -21,7 +21,7 @@ var auth = function () {
 
     var login = function () {
         return new Promise(function(resolve, reject){
-            var loginReq = http.request(loginReqOptions, function (res) {
+            var loginReq = https.request(loginReqOptions, function (res) {
                 var token = res.headers.token;
                 res.setEncoding('utf8');
                 res.on('data', function (body) {

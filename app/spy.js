@@ -1,5 +1,5 @@
 const WebSocket = require('ws');
-const http = require('http');
+const https = require('https');
 var _ = require('lodash');
 
 module.exports = function(data, token) {
@@ -11,8 +11,10 @@ module.exports = function(data, token) {
     var mattermostPort = process.env.MATTERMOST_PORT;
     var webHookId = process.env.WEBHOOK_ID;
 
-    const ws = new WebSocket(`ws://${mattermostHost}:${mattermostPort}/api/v4/websocket`);
-
+    let webSocketUrl = mattermostPort ? `wss://${mattermostHost}:${mattermostPort}/api/v4/websocket` : `wss://${mattermostHost}/api/v4/websocket`;
+    console.log(`webSocketUrl:${webSocketUrl}`);
+    console.log(webSocketUrl);
+    const ws = new WebSocket(webSocketUrl);
     getSeq = function() {
         return ++seq;
     };
@@ -94,7 +96,7 @@ module.exports = function(data, token) {
                 'Authorization': 'Bearer ' + token
             }
         };
-        var postReq = http.request(options);
+        var postReq = https.request(options);
         postReq.write(JSON.stringify(payload));
 
         postReq.end();

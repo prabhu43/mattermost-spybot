@@ -1,4 +1,4 @@
-const http = require('http');
+const https = require('https');
 const Promise = require("promise");
 
 module.exports = function (app, data, token) {
@@ -59,7 +59,7 @@ module.exports = function (app, data, token) {
                     'Authorization': 'Bearer ' + token
                 }
             };
-            var usernameReq = http.request(options, function (res) {
+            var usernameReq = https.request(options, function (res) {
                 res.setEncoding('utf8');
                 res.on('data', function (body) {
                     console.log(`Cache user details of ${victimName}`);
