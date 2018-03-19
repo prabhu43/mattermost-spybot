@@ -1,4 +1,6 @@
 # mattermost-spy-bot
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fprabhu43%2Fmattermost-spybot.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fprabhu43%2Fmattermost-spybot?ref=badge_shield)
+
 
 SpyBot notifies you when a specific user comes online after you have told the bot to spy on the user
 
@@ -38,3 +40,7 @@ Add the incoming webhook id in environment file(WEBHOOK_ID). SpyBot will use thi
 6. Start the app: **npm start**
 7. To spy on your team mate: Type "/spy @\<name>" or "/spy \<name>" in the any channel. Once the victim comes online, Spybot will post the response in the direct channel to you  
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fprabhu43%2Fmattermost-spybot.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fprabhu43%2Fmattermost-spybot?ref=badge_large)
